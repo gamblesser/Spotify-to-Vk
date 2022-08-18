@@ -30,7 +30,7 @@ def getSongsFromSpotify(url):
 	options.add_argument("--disable-blink-features=AutomationControlled")
 	options.add_experimental_option("excludeSwitches", ["enable-automation"])
 	options.add_experimental_option("useAutomationExtension", False)
-	#options.add_argument('headless')
+	options.add_argument('headless')
 
 
 	with webdriver.Chrome(PathToChromeWebDriver,options=options, desired_capabilities=capabilities) as driver:
