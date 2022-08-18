@@ -31,7 +31,7 @@ class Process:
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option("useAutomationExtension", False)
-        options.add_argument('headless')
+        #options.add_argument('headless')
         self.browser = webdriver.Chrome(PathToChromeWebDriver,options=options)
         self.url = 'https://vk.com/'
         self.username = USERNAME
@@ -155,6 +155,10 @@ class Process:
                 if self.__find_element(xpath='//div[@class="ape_check--checked"]').is_displayed():
                     self.counter += 1
                     self.skip_song_con=True
+                    song_search_element.clear()
+                    save_playlist = "//button[@class='FlatButton FlatButton--primary FlatButton--size-m']"
+                    save_playlist_element = self.__find_element(save_playlist)
+                    save_playlist_element.click()
                     continue
 
                 found_song_list = '//*[@id="box_layer"]/div[2]/div/div[2]/div/div[3]/div[2]/div[1]'
@@ -175,6 +179,10 @@ class Process:
                     if self.__find_element(xpath='//div[@class="ape_check--checked"]').is_displayed():
                         self.counter += 1
                         self.skip_song_con=True
+                        song_search_element.clear()
+                        save_playlist = "//button[@class='FlatButton FlatButton--primary FlatButton--size-m']"
+                        save_playlist_element = self.__find_element(save_playlist)
+                        save_playlist_element.click()
                         continue
                     found_song_list = '//*[@id="box_layer"]/div[2]/div/div[2]/div/div[3]/div[2]/div[1]'
                     found_song_list_element = self.__find_element(found_song_list)
