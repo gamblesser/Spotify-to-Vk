@@ -12,9 +12,12 @@ url = input('Введите полную ссылку на плейлист spot
 def getSongsFromSpotify(url):
 	cfg = configparser.ConfigParser()
 	path = 'config.cfg'
+	print(path)
 	cfg.read(path,encoding='utf-8')
 	#print([i for i in cfg.keys()])
+	print(cfg['CONFIG']['PROXY'])
 	proxy_ip_port =cfg['CONFIG']['PROXY']
+	PathToChromeWebDriver =cfg['CONFIG']['PATH_TO_CHROME_WEBDRIVER']
 	proxy = Proxy()
 	proxy.proxy_type = ProxyType.MANUAL
 	proxy.http_proxy = proxy_ip_port
@@ -30,7 +33,7 @@ def getSongsFromSpotify(url):
 	#options.add_argument('headless')
 
 
-	with webdriver.Chrome("C:\\Users\\danya\\Documents\\chromedriver.exe",options=options, desired_capabilities=capabilities) as driver:
+	with webdriver.Chrome(PathToChromeWebDriver,options=options, desired_capabilities=capabilities) as driver:
 		driver.get(url)
 		sleep(10)
 		title = driver.find_element(By.XPATH,'//span//h1').text

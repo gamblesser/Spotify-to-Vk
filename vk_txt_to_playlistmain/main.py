@@ -16,11 +16,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 cfg = configparser.ConfigParser()
 path = 'config.cfg'
 cfg.read(path,encoding='utf-8')
-FILE_NAME = cfg['CONFIG']['FILE_NAME']
 USERNAME = cfg['CONFIG']['USERNAME']
 PASSWORD = cfg['CONFIG']['PASSWORD']
 EXEPTWORDS = cfg['CONFIG']['EXEPTWORDS'].split(',')
-
+PathToChromeWebDriver =cfg['CONFIG']['PATH_TO_CHROME_WEBDRIVER']
 class Process:
     def __init__(self, file_name):
         options = Options()
@@ -32,7 +31,7 @@ class Process:
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option("useAutomationExtension", False)
         #options.add_argument('headless')
-        self.browser = webdriver.Chrome("C:\\Users\\danya\\Documents\\chromedriver.exe",options=options)
+        self.browser = webdriver.Chrome(PathToChromeWebDriver,options=options)
         self.url = 'https://vk.com/'
         self.username = USERNAME
         self.password = PASSWORD
