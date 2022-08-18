@@ -12,6 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+import winshell
 
 cfg = configparser.ConfigParser()
 path = 'config.cfg'
@@ -193,7 +194,7 @@ class Process:
             save_playlist_element.click()
 
         print(f'\n\n____Added {len(self.song_list)} songs!!____')
-        with open(f'notFound_{self.file_name}.txt','w', encoding='utf-8') as fp:
+        with open(f'{winshell.desktop()}\\notFound_{self.file_name}.txt','w', encoding='utf-8') as fp:
             fp.write('\n'.join(self.notFoundSongs))
 
     def __find_element(self, xpath: str, timeout: int = 10) -> WebElement or None:

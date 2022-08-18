@@ -1,0 +1,7 @@
+[CONFIG]
+FILE_NAME = ignore_it
+USERNAME = USERNAME
+PASSWORD = PASSWORD
+EXEPTWORDS = radio,edit,version,remastered,mix,remaster
+PROXY = ip:port
+PATH_TO_CHROME_WEBDRIVER = PATH_TO_CHROME_WEBDRIVER

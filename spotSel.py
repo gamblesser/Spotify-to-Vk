@@ -88,7 +88,7 @@ with open(f'{winshell.desktop()}\\{title}.txt', 'w', encoding="utf-8") as fp:
 
 		fp.write(f"{song}\n")
 
-with open(f'{title}.txt', 'w', encoding="utf-8") as fp:
+with open(f'{winshell.desktop()}\\{title}_ForYandex.txt', 'w', encoding="utf-8") as fp:
 	for song in songsForYandex:
 
 		fp.write(f"{song}\n")
