@@ -31,7 +31,7 @@ class Process:
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option("useAutomationExtension", False)
-        #options.add_argument('headless')
+        options.add_argument('headless')
         self.browser = webdriver.Chrome(PathToChromeWebDriver,options=options)
         self.url = 'https://vk.com/'
         self.username = USERNAME
@@ -54,7 +54,7 @@ class Process:
     def get_song_list(self):
         file_path = os.path.join(os.path.join(os.path.join
                                               (os.environ['USERPROFILE']), 'Desktop'), f'{self.file_name}.txt')
-
+        print(file_path)
         with open(file_path, encoding='utf-8') as f:
             for i in f:
 
@@ -216,5 +216,5 @@ class Process:
 
 
 if __name__ == '__main__':
-    process = Process(FILE_NAME)
+    process = Process('Deponia: The Complete Journey ')
     process.main()

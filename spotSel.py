@@ -30,7 +30,7 @@ def getSongsFromSpotify(url):
 	options.add_argument("--disable-blink-features=AutomationControlled")
 	options.add_experimental_option("excludeSwitches", ["enable-automation"])
 	options.add_experimental_option("useAutomationExtension", False)
-	#options.add_argument('headless')
+	options.add_argument('headless')
 
 
 	with webdriver.Chrome(PathToChromeWebDriver,options=options, desired_capabilities=capabilities) as driver:
@@ -83,12 +83,10 @@ def getSongsFromSpotify(url):
 
 
 songsForYoutube,songsForYandex,title = getSongsFromSpotify(url)
-if len(title)>60:
-	title = title[:title.find('(')]
-print(title)
+
 with open(f'{winshell.desktop()}\\{title}.txt', 'w', encoding="utf-8") as fp:
 	for song in songsForYoutube:
-		print(song)
+
 		fp.write(f"{song}\n")
 
 with open(f'{winshell.desktop()}\\{title}_ForYandex.txt', 'w', encoding="utf-8") as fp:
