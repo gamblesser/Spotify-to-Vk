@@ -141,16 +141,10 @@ class CollectTrecksFromSpotify:
 			raise TimeoutException
 
 
-options = Options()
-options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
-"Chrome/93.0.4577.63 Safari/537.36")
-options.add_argument("--disable-blink-features=AutomationControlled")
-options.add_experimental_option("excludeSwitches", ["enable-automation"])
-options.add_experimental_option("useAutomationExtension", False)
-#options.add_argument('headless')
 
-url = input('Enter full spotify url\n')
-print("Collect trecks from spotify")
-title= CollectTrecksFromSpotify()(url)
-print('Import To VK')
-main.Process(title).main()
+if __name__ == '__main__':
+	url = input('Enter full spotify url\n')
+	print("Collect trecks from spotify")
+	title= CollectTrecksFromSpotify()(url)
+	print('Import To VK')
+	main.Process(title).main()

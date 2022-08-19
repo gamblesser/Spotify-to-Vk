@@ -40,7 +40,6 @@ class Process:
         self.song_list = []
         self.file_name = file_name
         self.counter = 0
-        self.count = 0
         self.notFoundSongs = set()
         self.skip_song_con=False
 
@@ -210,5 +209,5 @@ class Process:
 
 
 if __name__ == '__main__':
-    process = Process('Relaxing Reading')
+    process = Process(FILE_NAME)
     process.main()
