@@ -14,18 +14,28 @@ import winshell
 class CollectTrecksFromSpotify:
 
 
-	def __init__(self,config,options):
-
+	def __init__(self,config='config.cfg',options=None):
+		if options == None:
+			options = Options()
+			options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
+			"Chrome/93.0.4577.63 Safari/537.36")
+			options.add_argument("--disable-blink-features=AutomationControlled")
+			options.add_experimental_option("excludeSwitches", ["enable-automation"])
+			options.add_experimental_option("useAutomationExtension", False)
+			#options.add_argument('headless')
 
 		self.url=url
 		self.listForYoutube=[]
 		self.listForYandex=[]
+
 		cfg = configparser.ConfigParser()
 		path = config
 		cfg.read(path,encoding='utf-8')
 		proxy_ip_port =cfg['CONFIG']['PROXY']
 		self.pathToChromeWebDriver =cfg['CONFIG']['PATH_TO_CHROME_WEBDRIVER']
+
 		self.options = options
+
 		proxy = Proxy()
 		proxy.proxy_type = ProxyType.MANUAL
 		proxy.http_proxy = proxy_ip_port
@@ -37,7 +47,7 @@ class CollectTrecksFromSpotify:
 	def __call__(self,url):
 		self.browser = webdriver.Chrome(self.pathToChromeWebDriver,options=self.options,desired_capabilities=self.capabilities)
 		self.getSongsFromSpotify()
-		self.writeToFile()
+		self.__writeToFile()
 		self.browser.quit()
 		return self.title
 
@@ -107,7 +117,7 @@ class CollectTrecksFromSpotify:
 
 
 
-	def writeToFile(self):
+	def __writeToFile(self):
 
 		with open(f'{winshell.desktop()}\\{self.title}.txt', 'w', encoding="utf-8") as fp:
 			for song in self.listForYoutube:
@@ -141,6 +151,6 @@ options.add_experimental_option("useAutomationExtension", False)
 
 url = input('Enter full spotify url\n')
 print("Collect trecks from spotify")
-title= CollectTrecksFromSpotify('config.cfg',options)(url)
+title= CollectTrecksFromSpotify()(url)
 print('Import To VK')
 main.Process(title).main()
