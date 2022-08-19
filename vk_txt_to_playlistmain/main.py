@@ -31,7 +31,7 @@ class Process:
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option("useAutomationExtension", False)
-        options.add_argument('headless')
+        #options.add_argument('headless')
         self.browser = webdriver.Chrome(PathToChromeWebDriver,options=options)
         self.url = 'https://vk.com/'
         self.username = USERNAME
@@ -166,6 +166,7 @@ class Process:
 
                 found_song_list_element.click()
                 #time.sleep(4)
+                print(f'Added song number {self.counter} -{self.song_list[self.counter]}')
                 self.counter += 1
                 self.skip_song_con=False
             except:
@@ -187,6 +188,7 @@ class Process:
                     found_song_list = '//*[@id="box_layer"]/div[2]/div/div[2]/div/div[3]/div[2]/div[1]'
                     found_song_list_element = self.__find_element(found_song_list)
                     found_song_list_element.click()
+                    print(f'Added song number {self.counter} -{self.song_list[self.counter]}')
                     self.counter+=1
                     self.skip_song_con=False
                 except:
@@ -216,5 +218,5 @@ class Process:
 
 
 if __name__ == '__main__':
-    process = Process('Deponia: The Complete Journey ')
+    process = Process('Relaxing Reading')
     process.main()
