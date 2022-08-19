@@ -1,8 +1,3 @@
-import os
-import time
-import configparser
-from datetime import timedelta
-import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -12,7 +7,12 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+import os
+import time
+from datetime import timedelta
+import configparser
 import winshell
+import re
 
 cfg = configparser.ConfigParser()
 path = 'config.cfg'
@@ -47,18 +47,18 @@ class Process:
     def main(self):
         self.get_song_list()
         self.login()
-        #self.go_to_music()
+        self.go_to_music()
         self.new_playlist()
         self.add_songs()
+        self.browser.quit()
+
 
     def get_song_list(self):
         file_path = os.path.join(os.path.join(os.path.join
                                               (os.environ['USERPROFILE']), 'Desktop'), f'{self.file_name}.txt')
-        print(file_path)
         with open(file_path, encoding='utf-8') as f:
             for i in f:
 
-                print(i)
                 if i:
                     self.song_list.append(i)
 
@@ -88,60 +88,49 @@ class Process:
         password_login_button_element.click()
 
     def go_to_music(self):
-        pass
+        go_to_music_button = '//li[@id="l_aud"]//a'
+        playlist_button_element = self.__find_element(go_to_music_button)
+        for _ in range(2):
+            playlist_button_element.click()
 
     
     def new_playlist(self):
-        playlist_button = '//li[@id="l_aud"]//a'
-        time.sleep(10)
-        playlist_button_element = self.__find_element(playlist_button)
-        playlist_button_element.click()
-        playlist_button_element.click()
 
-        playlist_button = '//*[@id="content"]/div/div[3]/div[1]/h2/ul/button[2]'
-        playlist_button_element = self.__find_element(playlist_button)
-        playlist_button_element.click()
+        new_playlist_button = '//*[@id="content"]/div/div[3]/div[1]/h2/ul/button[2]'
+        new_playlist_button_element = self.__find_element(new_playlist_button)
+        new_playlist_button_element.click()
 
         playlist_name = "//input[@id='ape_pl_name']"
         playlist_name_element = self.__find_element(playlist_name)
         playlist_name_element.send_keys(self.file_name)
+
         save_playlist = "//button[@class='FlatButton FlatButton--primary FlatButton--size-m']"
         save_playlist_element = self.__find_element(save_playlist)
         save_playlist_element.click()
-        music_button = '/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[3]/div[1]/h2/ul/li[2]/a'
-        music_button_element = self.__find_element(music_button)
-        music_button_element.click()
-        #music_button = '/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div[3]/div/div[2]/div[2]/div/div/div/div[2]/div/div[1]/div/a/div[3]/div[1]/div[2]'
-        #music_button_element = self.__find_element(music_button)
-        #music_button_element.click()      
-        self.add_songs()
-        time.sleep(5)
-        self.browser.quit()
+
+        my_music_button = '/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[3]/div[1]/h2/ul/li[2]/a'
+        my_music_button_element = self.__find_element(my_music_button)
+        my_music_button_element.click()
+
+
     def add_songs(self):
         song_search = '//input[@id="ape_edit_playlist_search"]'
-        #song_cursor = 0
         while self.counter != len(self.song_list) :
-            self.count=0
-            for i in range(1):
 
-                if self.count==0:
-                    try:
-                        #time.sleep(3)
-                    
-                        music_button = '/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div[2]/div/div[2]/div[2]/div/div/div/div[2]/div/div[1]/div/a/div[3]/div[1]/div[2]'
-                        music_button = '/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div[3]/div/div[2]/div[2]/div/div/div/div[2]/div/div[1]/div/a/div[3]/div[1]/div[2]'
-                        music_button_element = self.__find_element(music_button)
-                        music_button_element.click()
-                    except:
-                        time.sleep(3)
-                        music_button = '/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div[2]/div/div[2]/div[2]/div/div/div/div[2]/div/div[1]/div/a/div[3]/div[1]/div[2]'
-                        music_button = '/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div[3]/div/div[2]/div[2]/div/div/div/div[2]/div/div[1]/div/a/div[3]/div[1]/div[2]'
-                        music_button_element = self.__find_element(music_button)
-                        music_button_element.click()
+            try:                
+                music_button = '/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div[3]/div/div[2]/div[2]/div/div/div/div[2]/div/div[1]/div/a/div[3]/div[1]/div[2]'
+                music_button_element = self.__find_element(music_button)
+                music_button_element.click()
+            except:
+                time.sleep(3)
+                music_button = '/html/body/div[11]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div[3]/div/div[2]/div[2]/div/div/div/div[2]/div/div[1]/div/a/div[3]/div[1]/div[2]'
+                music_button_element = self.__find_element(music_button)
+                music_button_element.click()
+            
             try:
-                nums = [int(i) for i in re.findall(r'\d+',self.__find_element('/html/body/div[7]/div/div[2]/div/div[2]/div/div[1]/div[1]/div[4][text()]').text)]
-                if (self.counter!=nums[0]+len(self.notFoundSongs)) and not(self.skip_song_con):
-                    self.counter=nums[0]+len(self.notFoundSongs)
+                addedSongs = [int(i) for i in re.find(r'\d+',self.__find_element('/html/body/div[7]/div/div[2]/div/div[2]/div/div[1]/div[1]/div[4][text()]').text)]
+                if (self.counter!=addedSongs+len(self.notFoundSongs)) and not(self.skip_song_con):
+                    self.counter=addedSongs+len(self.notFoundSongs)
 
             except Exception as e:
                 pass           
@@ -152,6 +141,7 @@ class Process:
                 song_search_element = self.__find_element(xpath=song_search)
                 self.song_list[self.counter] = self.song_list[self.counter].replace('*',' ')
                 song_search_element.send_keys(self.song_list[self.counter])
+
                 if self.__find_element(xpath='//div[@class="ape_check--checked"]').is_displayed():
                     self.counter += 1
                     self.skip_song_con=True
@@ -171,12 +161,13 @@ class Process:
                 self.skip_song_con=False
             except:
                 try:
-                    song_vr = self.song_list[self.counter].lower()
+                    song = self.song_list[self.counter].lower()
                     for exeptWord in EXEPTWORDS:
-                        song_vr = song_vr.replace(exeptWord,'')
+                        song = song.replace(exeptWord,'')
                     song_search_element.clear()
                     song_search_element = self.__find_element(xpath=song_search)
-                    song_search_element.send_keys(song_vr)
+                    song_search_element.send_keys(song)
+
                     if self.__find_element(xpath='//div[@class="ape_check--checked"]').is_displayed():
                         self.counter += 1
                         self.skip_song_con=True
@@ -185,6 +176,7 @@ class Process:
                         save_playlist_element = self.__find_element(save_playlist)
                         save_playlist_element.click()
                         continue
+
                     found_song_list = '//*[@id="box_layer"]/div[2]/div/div[2]/div/div[3]/div[2]/div[1]'
                     found_song_list_element = self.__find_element(found_song_list)
                     found_song_list_element.click()
@@ -207,7 +199,7 @@ class Process:
         with open(f'{winshell.desktop()}\\notFound_{self.file_name}.txt','w', encoding='utf-8') as fp:
             fp.write('\n'.join(self.notFoundSongs))
 
-    def __find_element(self, xpath: str, timeout: int = 10) -> WebElement or None:
+    def __find_element(self, xpath: str, timeout: int = 15) -> WebElement or None:
         try:
             element = WebDriverWait(self.browser, timeout).until(
                 expected_conditions.presence_of_element_located((By.XPATH, xpath))
