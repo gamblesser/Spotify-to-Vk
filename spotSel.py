@@ -119,14 +119,14 @@ class CollectTrecksFromSpotify:
                     title.text.replace('\n', '').strip()
                     for title in songs.find_elements(
                         By.XPATH,
-                        f'//div[@aria-rowindex="{songCursor}"]//div[@aria-colindex="2"]/div//*[self::div or self::a]'
+                        f'//div[@aria-rowindex={songCursor}]//div[@aria-colindex="2"]/div/*[self::a or self::div or self::span[not(span[@title="Explicit"])]]'
                     )[::-1] if title.text.replace('\n', '').strip()
                 ]))
                 self.listForYandex.append(' - '.join([
                     title.text.replace('\n', '').strip()
                     for title in songs.find_elements(
                         By.XPATH,
-                        f'//div[@aria-rowindex="{songCursor}"]//div[@aria-colindex="2"]/div//*[self::div or self::a]'
+                        f'//div[@aria-rowindex={songCursor}]//div[@aria-colindex="2"]/div/*[self::a or self::div or self::span[not(span[@title="Explicit"])]]'
                     ) if title.text.replace('\n', '').strip()
                 ]))
 

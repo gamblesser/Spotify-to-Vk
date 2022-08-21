@@ -205,9 +205,9 @@ class Process:
             )
             return element
         except TimeoutException:
-            return None
+            return None  
 
 
 if __name__ == '__main__':
-    process = Process(FILE_NAME)
+    process = Process('working hits')
     process.main()
